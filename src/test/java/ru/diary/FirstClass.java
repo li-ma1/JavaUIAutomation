@@ -3,18 +3,22 @@ package ru.diary;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
 
 public class FirstClass {
     @Test
     public void firstTest() {
-        System.setProperty("webdriver.chrome.driver","/Users/User/Downloads/chromedriver_win32/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         ChromeDriver driver = new ChromeDriver();
-        driver.get("https://diary.ru/user/registration"); // запускаем сайт
-        // находим элемент по id для ввода email и вводим туда данные
+
+        driver.get("https://diary.ru/user/registration");
+
         driver.findElement(By.id("signupform-email")).sendKeys("testnumberone@test.com");
-        // находим кнопку "Зарегистрироваться" и кликаем на нее
+
         driver.findElement(By.id("signup_btn")).click();
         // проверка заголовка страницы
         String s = driver.getTitle();
@@ -32,6 +36,6 @@ public class FirstClass {
         WebElement loginParent = login.findElement(By.xpath(".."));
         String st = loginParent.findElement(By.cssSelector("p")).getText();
         Assert.assertEquals(st,"Необходимо заполнить «Логин».");
-
+        driver.quit();
     }
 }
