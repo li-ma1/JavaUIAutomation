@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
+
 public class TestForBBC {
 
     private WebDriver driver;
@@ -27,6 +28,7 @@ public class TestForBBC {
     public void firstTest() {
         //Шаг 1. Зайти на главную страницу сайта
         driver.get("https://www.bbc.com/");
+
         /*
         Здесь я совместила ожидаемый результат к шагу 1 - ожидается
         вкладка  "Sign in"  в верхней части экрана на панели навигации - и выполнила сразу шаг 2 - кликнуть на него
