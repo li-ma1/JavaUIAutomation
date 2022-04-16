@@ -1,15 +1,14 @@
 package com.andersenlab;
 
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
@@ -18,15 +17,15 @@ import java.util.List;
 
 
 public class TestForAndersenlab {
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    @Before
+    public static WebDriver driver;
+    public static WebDriverWait wait;
+    @BeforeEach
     public void init() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
+
 
     @Test
     public void firstTest() throws InterruptedException, AWTException {
@@ -48,7 +47,7 @@ public class TestForAndersenlab {
         r.keyPress(KeyEvent.VK_ENTER);
         // Здесь просто проверяем урл страницы, на которую мы перешли
         String str = driver.getCurrentUrl();
-        Assert.assertEquals("https://join.skype.com/aM8R4P4dNJdy", str);
+        Assertions.assertEquals("https://join.skype.com/aM8R4P4dNJdy", str);
     }
 
     @Test
@@ -61,12 +60,13 @@ public class TestForAndersenlab {
         driver.findElement(By.xpath("//*[@id='gatsby-focus-wrapper']/header//nav/ul/div[1]/div[2]/div[2]/div[2]/div/div/div/span[1]/a")).click();
         // Подождать пока страница загрузится
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='gatsby-focus-wrapper']/header//div[2]/a")));
+        Thread.sleep(3000);
         // Проверяем, что перенапралены на нужную страницу
         String str = driver.getCurrentUrl();
-        Assert.assertEquals("https://andersenlab.com/find-developers/java", str);
+        Assertions.assertEquals("https://andersenlab.com/find-developers/java", str);
     }
 
-    @After
+    @AfterEach
     public void close() {
         driver.quit();
     }

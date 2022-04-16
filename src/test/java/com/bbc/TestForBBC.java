@@ -1,14 +1,17 @@
 package com.bbc;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
 import java.time.Duration;
 
 
@@ -18,7 +21,7 @@ public class TestForBBC {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    @Before
+    @BeforeEach
     public void init() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
@@ -42,9 +45,9 @@ public class TestForBBC {
         driver.findElement(By.id("submit-button")).click();
         // Ожидаемый результат - переход на главную страницу сайта и отображение вкладки "Your account"
         String str = driver.getCurrentUrl();
-        Assert.assertTrue(str.equals("https://www.bbc.com/"));
+        Assertions.assertEquals("https://www.bbc.com/", str);
         String s = driver.findElement(By.id("idcta-username")).getText();
-        Assert.assertTrue(s.equals("Your account"));
+        Assertions.assertEquals("Your account", s);
     }
     @Test
     public void secondTest() {
@@ -66,9 +69,9 @@ public class TestForBBC {
         "Uh oh, that password doesn’t match that account. Please try again."
         */
         String str = driver.findElement(By.xpath("//*[@id='form-message-password']/p/span/span")).getText();
-        Assert.assertTrue(str.equals("Uh oh, that password doesn’t match that account. Please try again."));
+        Assertions.assertEquals("Uh oh, that password doesn’t match that account. Please try again.", str);
     }
-    @After
+    @AfterEach
     public void close() {
         driver.quit();
     }
